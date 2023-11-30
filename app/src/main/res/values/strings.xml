@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Upcycle</string>
+    <string name="signup">Sign Up</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="copyright">© 2023</string>
+    <string name="label_validation_password">Password tidak boleh kurang dari 8 karakter</string>
+    <string name="label_invalid_email">Format Email tidak valid</string>
+
 </resources>
