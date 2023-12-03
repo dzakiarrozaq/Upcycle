@@ -73,7 +73,7 @@ class CVPassword : AppCompatEditText {
 
 
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         context.apply {
             setTextColor(ContextCompat.getColor(this, R.color.black))

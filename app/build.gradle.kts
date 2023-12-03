@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.bangkit.upcycle"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.bangkit.upcycle"

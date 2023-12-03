@@ -29,7 +29,7 @@ class CVName : AppCompatEditText, View.OnTouchListener {
 
     private fun init() {
         clearButtonImage = ContextCompat.getDrawable(context, R.drawable.cross) as Drawable
-        iconFormInput = ContextCompat.getDrawable(context, R.drawable.orang) as Drawable
+        iconFormInput = ContextCompat.getDrawable(context, R.drawable.person) as Drawable
         setOnTouchListener(this)
 
         addTextChangedListener(object : TextWatcher {
@@ -85,12 +85,12 @@ class CVName : AppCompatEditText, View.OnTouchListener {
             if (isClearButtonClicked) {
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
-                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.silang) as Drawable
+                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.cross) as Drawable
                         showClearButton()
                         return true
                     }
                     MotionEvent.ACTION_UP -> {
-                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.silang) as Drawable
+                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.cross) as Drawable
                         when {
                             text != null -> text?.clear()
                         }
