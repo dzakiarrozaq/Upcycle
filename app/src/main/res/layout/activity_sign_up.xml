@@ -14,7 +14,6 @@
 
         <ImageView
             android:id="@+id/iv_signup"
-            android:alpha="0"
             android:layout_width="346dp"
             android:layout_height="279dp"
             android:layout_marginStart="32dp"
@@ -28,7 +27,6 @@
 
         <TextView
             android:id="@+id/tv_signup"
-            android:alpha="0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -38,6 +36,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +44,6 @@
 
         <TextView
             android:id="@+id/tv_register_name"
-            android:alpha="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -57,7 +55,6 @@
 
         <com.bangkit.upcycle.customview.CVName
             android:id="@+id/ed_register_name"
-            android:alpha="0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -71,7 +68,6 @@
 
         <TextView
             android:id="@+id/tv_register_email"
-            android:alpha="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -83,7 +79,6 @@
 
         <com.bangkit.upcycle.customview.CVEmail
             android:id="@+id/ed_register_email"
-            android:alpha="0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -97,7 +92,6 @@
 
         <TextView
             android:id="@+id/tv_register_password"
-            android:alpha="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -109,7 +103,6 @@
 
         <com.bangkit.upcycle.customview.CVPassword
             android:id="@+id/ed_register_password"
-            android:alpha="0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -124,7 +117,6 @@
 
         <Button
             android:id="@+id/signup_button"
-            android:alpha="0"
             android:layout_width="0dp"
             android:layout_height="64dp"
             android:layout_marginStart="32dp"
@@ -133,7 +125,7 @@
             android:backgroundTint="@color/green_dark"
             android:text="@string/signup"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/copyrightTextView"
+            app:layout_constraintBottom_toTopOf="@+id/with_other"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -167,20 +159,40 @@
             app:layout_constraintGuide_percent="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/copyrightTextView"
-            android:alpha="0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/copyright"
-            android:textSize="14sp"
-            android:layout_marginTop="8dp"
+        <View
+            android:id="@+id/view"
+            android:layout_width="93dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="34dp"
+            android:background="#000000"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/signup_button"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/signup_button"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="93dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="20dp"
+            android:background="#000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signup_button"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/with_other"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:text="Or Continue With"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/signup_button"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp"/>
 
         <ProgressBar
             android:id="@+id/progressBarRegister"
@@ -194,6 +206,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.243"
             tools:visibility="visible" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
