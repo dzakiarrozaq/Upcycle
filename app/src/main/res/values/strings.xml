@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Upcycle</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="or_continue_with">Or Continue With</string>
+    <string name="dont_have_any_account">Don\'t Have Any Account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="materials">Materials</string>
+    <string name="plastik">Plastik</string>
+    <string name="glass">Glass</string>
+    <string name="paper">Paper</string>
+    <string name="metal">Metal</string>
+    <string name="hi_matcha">Hi, Matcha</string>
+    <string name="welcome">Welcome Back!</string>
+    <string name="profil">Profil</string>
+    <string name="log_out">Log Out</string>
+    <string name="notification">Notification</string>
+    <string name="help">Help</string>
 </resources>

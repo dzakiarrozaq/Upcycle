@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="50dp" android:topLeftRadius="0dp" android:topRightRadius="0dp"/> <!-- Sesuaikan sudut melengkung sesuai keinginan Anda -->
+    <solid android:color="#3D8361" />
+</shape>
