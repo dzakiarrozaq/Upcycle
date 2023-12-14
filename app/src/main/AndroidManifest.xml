@@ -13,12 +13,9 @@
         android:theme="@style/Theme.Upcycle"
         tools:targetApi="31" >
         <activity
-            android:name=".ui.LocationActivity"
+            android:name=".ui.RecycleBag"
             android:exported="false"
             android:theme="@style/Theme.Upcycle" />
-        <activity
-            android:name=".ui.LearnActivity"
-            android:exported="false" />
         <activity
             android:name=".ui.SignUpActivity"
             android:exported="false" />
