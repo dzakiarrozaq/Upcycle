@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">Upcycle</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="signup">Create Your Account</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="copyright">© 2023</string>
+    <string name="label_validation_password">Password tidak boleh kurang dari 8 karakter</string>
+    <string name="label_invalid_email">Format Email tidak valid</string>
+    <string name="good_to_know">Good to Know</string>
+    <string name="see_all">See All</string>
+    <string name="topic_for_you">Topic for You</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
