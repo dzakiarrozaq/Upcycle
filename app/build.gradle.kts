@@ -69,6 +69,7 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation("androidx.paging:paging-runtime-ktx:3.1.1")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 
 //    implementation ("androidx.room:room-ktx:2.6.0")
 //    kapt ("androidx.room:room-compiler:2.6.0")
