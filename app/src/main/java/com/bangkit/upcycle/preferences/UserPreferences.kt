@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.map
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token")
 
-class UserPreference private constructor(private val dataStore: DataStore<Preferences>) {
+class UserPreferences private constructor(private val dataStore: DataStore<Preferences>) {
 
 
     suspend fun saveAuthToken(data: User) {
@@ -41,16 +41,16 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     companion object {
 
         @Volatile
-        private var INSTANCE: UserPreference? = null
+        private var INSTANCE: UserPreferences? = null
 
         private val TOKEN_KEY = stringPreferencesKey("token")
         private val NAME_KEY = stringPreferencesKey("name")
         private val USER_ID = stringPreferencesKey("userId")
         private val IS_LOGIN_KEY = booleanPreferencesKey("isLogin")
 
-        fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
+        fun getInstance(dataStore: DataStore<Preferences>): UserPreferences {
             return INSTANCE ?: synchronized(this) {
-                val instance = UserPreference(dataStore)
+                val instance = UserPreferences(dataStore)
                 INSTANCE = instance
                 instance
             }
