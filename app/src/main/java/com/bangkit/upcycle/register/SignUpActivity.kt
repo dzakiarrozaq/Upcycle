@@ -20,7 +20,7 @@ import retrofit2.HttpException
 class SignUpActivity : AppCompatActivity() {
 
 
-    private val viewModel by viewModels<RegisterViewModel> {
+    private val viewModel by viewModels<SignUpViewModel> {
         ViewModelFactory.getInstance(this)
     }
 
