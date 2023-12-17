@@ -34,6 +34,10 @@ class SignUpActivity : AppCompatActivity() {
         binding.signupButton.setOnClickListener{
             register()
         }
+        binding.signin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun register() {
