@@ -32,4 +32,6 @@
     <string name="nama_sampah">Nama Sampah</string>
     <string name="recycle_bag">Recycle Bag</string>
     <string name="sign_in">Sign In</string>
+    <string name="email_empty">Email cannot be empty</string>
+    <string name="password_empty">Password cannot be empty</string>
 </resources>

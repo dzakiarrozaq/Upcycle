@@ -1,65 +1,27 @@
 package com.bangkit.upcycle.login
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.bangkit.upcycle.preferences.UserPreferences
+import com.bangkit.upcycle.preferences.User
 import com.bangkit.upcycle.repository.UserRepository
-import kotlinx.coroutines.launch
+import com.bangkit.upcycle.response.LoginResponse
 
+class LoginViewModel(private var repository: UserRepository) : ViewModel() {
 
+    val isLoading: LiveData<Boolean>
+        get() = repository.isLoading
 
-class LoginViewModel(
-    private val userRepository: UserRepository,
-    private val userPreferences: UserPreferences
-) : ViewModel() {
+    val loginResponse: LiveData<LoginResponse>
+        get() = repository.loginResponse
 
-    val email = MutableLiveData<String>()
-    val password = MutableLiveData<String>()
-
-    private val _loginState = MutableLiveData<LoginState>()
-    val loginState: LiveData<LoginState> = _loginState
-
-    fun login() {
-        val emailValue = email.value.orEmpty()
-        val passwordValue = password.value.orEmpty()
-        showLoading()
-        viewModelScope.launch {
-            try {
-                val response = userRepository.login(emailValue, passwordValue)
-                if (response.isSuccessful) {
-                    val loginResponse = response.body()
-                    if (loginResponse != null) {
-                        userRepository.saveSession(loginResponse) // Assuming "saveSession" takes "LoginResponse"
-                        _loginState.value = LoginState.Success
-                    } else {
-                        _loginState.value = LoginState.Error("Login response body is null.")
-                    }
-                } else {
-                    val errorBody = response.errorBody()?.string()
-                    _loginState.value = LoginState.Error(errorBody ?: "Unknown error.")
-                }
-            } catch (e: Exception) {
-                _loginState.value = LoginState.Error(e.message ?: "An unexpected error occurred.")
-            } finally {
-                hideLoading()
-            }
-        }
+    fun login(email: String, password: String) {
+        repository.login(email, password)
     }
 
-    private fun showLoading() {
-        // Implement loading UI updates based on your view framework
+    suspend fun saveSession(user: User) {
+        repository.saveSession(user)
     }
 
-    private fun hideLoading() {
-        // Implement hiding loading UI based on your view framework
-    }
-
-    sealed class LoginState {
-        object Success : LoginState()
-        data class Error(val message: String) : LoginState()
-    }
 }
 
 
