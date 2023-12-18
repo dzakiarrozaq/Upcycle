@@ -15,6 +15,7 @@ import com.bangkit.upcycle.R
 import com.bangkit.upcycle.ViewModelFactory
 import com.bangkit.upcycle.databinding.ActivityLoginBinding
 import com.bangkit.upcycle.databinding.ActivitySignUpBinding
+import com.bangkit.upcycle.home.HomeFragment
 import com.bangkit.upcycle.preferences.User
 import com.bangkit.upcycle.register.SignUpActivity
 import com.bangkit.upcycle.register.SignUpViewModel
@@ -87,7 +88,7 @@ class LoginActivity : AppCompatActivity() {
     private fun save(session: User) {
         lifecycleScope.launch {
             viewModel.saveSession(session)
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            val intent = Intent(this@LoginActivity, HomeFragment::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             ViewModelFactory.clearInstance()
             startActivity(intent)

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.upcycle.di.Injection
+import com.bangkit.upcycle.login.LoginViewModel
 import com.bangkit.upcycle.register.SignUpViewModel
 import com.bangkit.upcycle.repository.UserRepository
 
@@ -16,10 +17,12 @@ class ViewModelFactory (
         if (modelClass.isAssignableFrom(SignUpViewModel::class.java)) {
             return SignUpViewModel(repository) as T
         }
-//        } else if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-//            return LoginViewModel(repository) as T
+        else if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
+            return LoginViewModel(repository) as T
+        }
 //        }else if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
 //            return MainViewModel(repository) as T
+//        }
 //        }else if (modelClass.isAssignableFrom(UploadViewModel::class.java)) {
 //            return UploadViewModel(repository) as T
 //        }else if (modelClass.isAssignableFrom(MapsViewModel::class.java)) {
