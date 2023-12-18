@@ -34,7 +34,7 @@
             android:layout_marginTop="35dp"
             android:layout_marginEnd="32dp"
             android:text="@string/signup"
-            android:textSize="16sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,22 +48,30 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:text="@string/name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_signup" />
 
-        <com.bangkit.upcycle.customview.CVName
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ed_register_name"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="20dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:padding="16dp"
-            android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_register_name"
-            tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
+            app:startIconDrawable="@drawable/person"
+            tools:ignore="MissingConstraints">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/NameEditText"
+                android:layout_width="match_parent"
+                tools:ignore="SpeakableTextPresentCheck"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_register_email"
@@ -71,22 +79,30 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:text="@string/email"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ed_register_name" />
 
-        <com.bangkit.upcycle.customview.CVEmail
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ed_register_email"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="20dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:padding="16dp"
-            android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_register_email"
-            tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
+            app:startIconDrawable="@drawable/baseline_email_24"
+            tools:ignore="MissingConstraints">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEditText"
+                android:layout_width="match_parent"
+                tools:ignore="SpeakableTextPresentCheck"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_register_password"
@@ -94,22 +110,33 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:text="@string/password"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ed_register_email" />
 
-        <com.bangkit.upcycle.customview.CVPassword
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ed_register_password"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:padding="16dp"
-            android:textColorHint="@color/black"
+            android:elevation="20dp"
+            app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_register_password"
-            tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
+            app:startIconDrawable="@drawable/baseline_lock_24"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="SpeakableTextPresentCheck"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/signup_button"
@@ -121,6 +148,7 @@
             android:backgroundTint="@color/green_dark"
             android:text="@string/signup"
             android:textStyle="bold"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/with_other"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
