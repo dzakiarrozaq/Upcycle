@@ -75,6 +75,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:textColor="@color/white"
             android:text="Setting"
             android:drawableStart="@drawable/baseline_settings_24"
             android:drawablePadding="16dp"
@@ -105,19 +106,6 @@
             android:text="@string/help"
             android:textColor="@color/white"
             android:drawableStart="@drawable/baseline_help_24"
-            android:drawablePadding="16dp"
-            android:paddingStart="20dp"
-            android:textAlignment="viewStart"
-            android:background="@drawable/profile_list"
-            android:layout_marginTop="20dp"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:text="Setting"
-            android:drawableStart="@drawable/baseline_settings_24"
             android:drawablePadding="16dp"
             android:paddingStart="20dp"
             android:textAlignment="viewStart"
