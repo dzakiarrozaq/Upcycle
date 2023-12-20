@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bangkit.upcycle.di.Injection
 import com.bangkit.upcycle.login.LoginViewModel
-import com.bangkit.upcycle.register.SignUpViewModel
+import com.bangkit.upcycle.register.RegisterViewModel
 import com.bangkit.upcycle.repository.UserRepository
 
 
@@ -14,8 +14,8 @@ class ViewModelFactory (
 ) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SignUpViewModel::class.java)) {
-            return SignUpViewModel(repository) as T
+        if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
+            return RegisterViewModel(repository) as T
         }
         else if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel(repository) as T

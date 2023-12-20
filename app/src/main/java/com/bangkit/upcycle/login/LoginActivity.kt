@@ -2,27 +2,21 @@ package com.bangkit.upcycle.login
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.bangkit.upcycle.MainActivity
 import com.bangkit.upcycle.R
 import com.bangkit.upcycle.ViewModelFactory
 import com.bangkit.upcycle.databinding.ActivityLoginBinding
-import com.bangkit.upcycle.databinding.ActivitySignUpBinding
 import com.bangkit.upcycle.home.HomeFragment
 import com.bangkit.upcycle.preferences.User
 import com.bangkit.upcycle.register.SignUpActivity
-import com.bangkit.upcycle.register.SignUpViewModel
-import com.bangkit.upcycle.response.ErrorResponse
-import com.google.gson.Gson
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 
 class LoginActivity : AppCompatActivity() {
 
