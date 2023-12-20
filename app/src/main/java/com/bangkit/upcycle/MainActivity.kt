@@ -3,6 +3,7 @@ package com.bangkit.upcycle
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.bangkit.upcycle.camera.CameraFragment
 import com.bangkit.upcycle.databinding.ActivityMainBinding
 import com.bangkit.upcycle.home.HomeFragment
 import com.bangkit.upcycle.profil.ProfilFragment
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.home -> fragment(HomeFragment())
                 R.id.profil -> fragment(ProfilFragment())
+                R.id.camera -> fragment(CameraFragment())
 
                 else -> {
 

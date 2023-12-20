@@ -62,7 +62,7 @@ class SignUpActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                val response = viewModel.register(name, email, password)
+                val response = viewModel.registerUser(name, email, password)
                 showLoading(false)
                 Log.d("RegisterActivity", "Registrasi berhasil: $response")
                 val message = "Registrasi berhasil: $response"
