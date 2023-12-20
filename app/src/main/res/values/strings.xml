@@ -29,4 +29,14 @@
     <string name="help">Help</string>
     <string name="register_succes">Anda Berhasil Melakukan Registrasi</string>
     <string name="continuee">Lanjut</string>
+    <string name="has_no_label">Gambar Tidak Terbaca</string>
+    <string name="recycle_bag">Recycle Bag</string>
+    <string name="sign_in">Sign In</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galery</string>
+    <string name="prediction">Prediction</string>
+    <string name="nama_sampah">Nama Sampah</string>
+    <string name="email_empty">Email Kosong</string>
+    <string name="password_empty">Password Kosong</string>
+    <string name="tulis_disini">Tulis Disini</string>
 </resources>

@@ -22,10 +22,11 @@ object ApiConfig {
             .addInterceptor(authInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://localhost:3001/")
+            .baseUrl("https://upcycle-gzvgkv3nsa-et.a.run.app")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
         return retrofit.create(ApiService::class.java)
     }
+
 }

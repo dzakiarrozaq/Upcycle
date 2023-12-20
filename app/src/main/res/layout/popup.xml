@@ -4,9 +4,8 @@
     android:layout_width="match_parent"
     android:id="@+id/backgroundView"
     android:background="@drawable/popup_sahpe"
+    android:gravity="center"
     android:layout_height="260dp">
-
-
 
     <TextView
         android:id="@+id/tvname1"
@@ -16,9 +15,8 @@
         android:textStyle="bold"
         tools:text="Class Sampah"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:gravity="center"
+        android:textSize="30sp"
         tools:ignore="MissingConstraints" />
-
-
 
 </RelativeLayout>

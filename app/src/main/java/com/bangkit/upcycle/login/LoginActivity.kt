@@ -2,27 +2,22 @@ package com.bangkit.upcycle.login
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.bangkit.upcycle.MainActivity
 import com.bangkit.upcycle.R
 import com.bangkit.upcycle.ViewModelFactory
 import com.bangkit.upcycle.databinding.ActivityLoginBinding
-import com.bangkit.upcycle.databinding.ActivitySignUpBinding
-import com.bangkit.upcycle.home.HomeFragment
 import com.bangkit.upcycle.preferences.User
 import com.bangkit.upcycle.register.SignUpActivity
-import com.bangkit.upcycle.register.SignUpViewModel
-import com.bangkit.upcycle.response.ErrorResponse
-import com.google.gson.Gson
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 
 class LoginActivity : AppCompatActivity() {
 
@@ -73,22 +68,24 @@ class LoginActivity : AppCompatActivity() {
                 binding.emailEditText.error = getString(R.string.email_empty)
             } else if (password.isEmpty()) {
                 binding.passwordEditText.error = getString(R.string.password_empty)
-            } else {
-                viewModel.login(email, password)
-
-                viewModel.loginResponse.observe(this) { loginResponse ->
-                    loginResponse?.token?.let { token ->
-                        save(User(token, true))
-                    }
-                }
             }
+
+            viewModel.login(email, password)
+
+            viewModel.loginResponse.observe(this, Observer { loginResponse ->
+                loginResponse?.let { response ->
+                    val token = response.token ?: "" // Provide a default value if the token is null
+                    save(User(token, true))
+                }
+            })
         }
     }
+
 
     private fun save(session: User) {
         lifecycleScope.launch {
             viewModel.saveSession(session)
-            val intent = Intent(this@LoginActivity, HomeFragment::class.java)
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             ViewModelFactory.clearInstance()
             startActivity(intent)
