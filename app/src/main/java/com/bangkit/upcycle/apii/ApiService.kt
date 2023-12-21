@@ -1,16 +1,20 @@
 package com.bangkit.upcycle.apii
 
+import com.bangkit.upcycle.response.AddToRecycleBagResponse
 import com.bangkit.upcycle.response.LoginResponse
 import com.bangkit.upcycle.response.RegisterResponse
 import com.google.gson.JsonObject
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
-
+import retrofit2.http.Part
 
 
 interface ApiService {
@@ -21,6 +25,16 @@ interface ApiService {
     fun login(
         @Body requestBody: JsonObject
     ): Call<LoginResponse>
+
+    @GET("stories")
+    fun getRecycleBag(): Call<AddToRecycleBagResponse>
+
+    @Multipart
+    @POST("recycle")
+    fun uploadRecycle(
+        @Part file: MultipartBody.Part,
+        @Part("name") name: RequestBody,
+    ): Call<AddToRecycleBagResponse>
 
 
 }

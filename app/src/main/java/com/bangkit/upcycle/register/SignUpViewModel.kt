@@ -28,7 +28,7 @@ class SignUpViewModel(private val repository: UserRepository) : ViewModel() {
                 val response = repository.registerUser(username, email, password)
 
                 withContext(Dispatchers.Main) {
-                    if (response != null && response.message != null) {
+                    if (response.message != null) {
                         _message.postValue(response.message)
                     } else {
                         Log.e("SignUpViewModel", "Registrasi gagal: Response null or missing message")

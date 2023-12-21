@@ -54,8 +54,6 @@ class UserRepository private constructor(
             } else {
                 val errorMessage = extractErrorMessage(response)
                 Log.e("UserRepository", errorMessage)
-                // Handle error case if needed
-                // deferred.complete(RegisterResponse(error = true, message = errorMessage))
             }
         } catch (t: Throwable) {
             val errorMessage = "Registration failed: ${t.message}"
@@ -64,9 +62,6 @@ class UserRepository private constructor(
             withContext(Dispatchers.Main) {
                 _isLoading.value = false
             }
-
-            // Handle failure case if needed
-            // deferred.completeExceptionally(t)
         }
 
         return deferred.await()
@@ -90,9 +85,7 @@ class UserRepository private constructor(
                     response.body()?.let { deferred.complete(it) }
                 } else {
                     val errorMessage = extractErrorMessage(response)
-                    Log.e("StoryRepository", errorMessage)
-                    // Handle error case if needed
-                    // deferred.complete(LoginResponse(error = true, message = errorMessage))
+                    Log.e("UserRepository", errorMessage)
                 }
             }
 
@@ -100,8 +93,6 @@ class UserRepository private constructor(
                 val errorMessage = "Login failed: ${t.message}"
                 Log.e("StoryRepository", errorMessage)
                 _isLoading.value = false
-                // Handle failure case if needed
-                // deferred.completeExceptionally(t)
             }
         })
 
