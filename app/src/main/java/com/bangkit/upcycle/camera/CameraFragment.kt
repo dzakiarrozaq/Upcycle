@@ -19,12 +19,15 @@ import androidx.fragment.app.Fragment
 import com.bangkit.upcycle.R
 import com.bangkit.upcycle.databinding.FragmentCameraBinding
 import com.bangkit.upcycle.getImageUri
-import com.bangkit.upcycle.ml.Modelrev
+import com.bangkit.upcycle.ml.Model
+import com.bangkit.upcycle.ml.Modelint8quant
 import org.tensorflow.lite.DataType
+import org.tensorflow.lite.support.common.ops.NormalizeOp
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import java.text.Normalizer
 import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
@@ -72,14 +75,16 @@ class CameraFragment : Fragment() {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
 
-                    var tensorImage = TensorImage(DataType.FLOAT32)
+                    var tensorImage = TensorImage(DataType.UINT8)
                     tensorImage.load(bitmap)
                     tensorImage = imageProcess.process(tensorImage)
+                    val buffer = tensorImage.buffer
+                    Log.d("After Normalization", "Min: ${buffer.float}, Max: ${buffer.float}")
 
                     Log.d("Image Dimensions", "Width: ${tensorImage.width}, Height: ${tensorImage.height}")
 
-                    val model = Modelrev.newInstance(requireContext())
-                    val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
+                    val model = Modelint8quant.newInstance(requireContext())
+                    val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.UINT8)
                     inputFeature0.loadBuffer(tensorImage.buffer)
                     val shape = inputFeature0.shape
                     Log.d("Buffer Size", "Size: ${inputFeature0.buffer.capacity()} bytes")
@@ -159,7 +164,7 @@ class CameraFragment : Fragment() {
 
         popUp.window?.attributes = layoutParams
 
-        val radius = resources.getDimension(R.dimen.popup_corner_radius) // Sesuaikan dengan dimensi yang diinginkan
+        val radius = resources.getDimension(R.dimen.popup_corner_radius)
         val shape = GradientDrawable()
         shape.cornerRadii = floatArrayOf(radius, radius, radius, radius, 0f, 0f, 0f, 0f)
         popUp.window?.setBackgroundDrawable(shape)
