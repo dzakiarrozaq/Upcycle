@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.bangkit.upcycle.MainActivity
 import com.bangkit.upcycle.R
 import com.bangkit.upcycle.ViewModelFactory
 import com.bangkit.upcycle.databinding.ActivityLoginBinding
@@ -82,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
     private fun save(session: User) {
         lifecycleScope.launch {
             viewModel.saveSession(session)
-            val intent = Intent(this@LoginActivity, HomeFragment::class.java)
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             ViewModelFactory.clearInstance()
             startActivity(intent)

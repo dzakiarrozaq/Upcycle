@@ -38,4 +38,6 @@
     <string name="nama_sampah">Nama Sampah</string>
     <string name="email_empty">Email Kosong</string>
     <string name="password_empty">Password Kosong</string>
+    <string name="tulis_disini">Tulis disini</string>
+    <string name="hi_user">Hi </string>
 </resources>
