@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.bangkit.upcycle.apii.ApiConfig
 import com.bangkit.upcycle.apii.ApiService
 import com.bangkit.upcycle.camera.CameraFragment
+//import com.bangkit.upcycle.camera.CameraFragment
 import com.bangkit.upcycle.databinding.ActivityMainBinding
 import com.bangkit.upcycle.home.HomeFragment
 import com.bangkit.upcycle.preferences.UserPreferences

@@ -41,7 +41,7 @@ class UserRepository private constructor(
         val deferred = CompletableDeferred<RegisterResponse>()
 
         val requestBody = JsonObject().apply {
-            addProperty("name", username)
+            addProperty("username", username)
             addProperty("email", email)
             addProperty("password", password)
         }
