@@ -1,6 +1,7 @@
 package com.bangkit.upcycle.camera
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
@@ -24,8 +25,11 @@ import com.bangkit.upcycle.R
 import com.bangkit.upcycle.ViewModelFactory
 import com.bangkit.upcycle.databinding.FragmentCameraBinding
 import com.bangkit.upcycle.getImageUri
+import com.bangkit.upcycle.ml.Model
 import com.bangkit.upcycle.ml.Modelint8quant
+import com.bangkit.upcycle.repository.ImageData
 import com.bangkit.upcycle.repository.ModelDataJson
+import com.bangkit.upcycle.repository.PredictionData
 import com.bangkit.upcycle.response.AddToRecycleBagResponse
 import com.bangkit.upcycle.uriToFile
 import com.google.gson.Gson
@@ -91,7 +95,7 @@ class CameraFragment : Fragment() {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
 
-                    var tensorImage = TensorImage(DataType.UINT8)
+                    var tensorImage = TensorImage(DataType.FLOAT32)
                     tensorImage.load(bitmap)
                     tensorImage = imageProcess.process(tensorImage)
                     val buffer = tensorImage.buffer
@@ -99,8 +103,8 @@ class CameraFragment : Fragment() {
 
                     Log.d("Image Dimensions", "Width: ${tensorImage.width}, Height: ${tensorImage.height}")
 
-                    val model = Modelint8quant.newInstance(requireContext())
-                    val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.UINT8)
+                    val model = Model.newInstance(requireContext())
+                    val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
                     inputFeature0.loadBuffer(tensorImage.buffer)
                     val shape = inputFeature0.shape
                     Log.d("Buffer Size", "Size: ${inputFeature0.buffer.capacity()} bytes")
@@ -190,7 +194,8 @@ class CameraFragment : Fragment() {
         val buttonAdd = popUp.findViewById<Button>(R.id.addToRecycleBag)
 
         buttonAdd.setOnClickListener{
-            uploadImage()
+            uploadRecycle()
+
         }
 
         backgroundView.setOnClickListener{
@@ -200,67 +205,40 @@ class CameraFragment : Fragment() {
         popUp.show()
     }
 
-//    private fun uploadRecycle() {
-//        currentImageUri?.let { uri ->
-//            val imageFile = uriToFile(uri, requireContext())
-//            Log.d("Image File", "showImage: ${imageFile.path}")
-//            val description = binding.tvname.text.toString()
-//
-//            val requestBody = description.toRequestBody("text/plain".toMediaType())
-//
-//
-//            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
-//            val multipartBody = MultipartBody.Part.createFormData(
-//                "wasteImage",
-//                imageFile.name,
-//                requestImageFile
-//            )
-//            val request = ModelDataJson(multipartBody,description)
-//            lifecycleScope.launch {
-//                try {
-//                    viewModel.uploadRecycle(request)
-//                    showToast(getString(R.string.add_succes))
-//                } catch (e: HttpException) {
-//                    val errorBody = e.response()?.errorBody()?.string()
-//                    val errorResponse = Gson().fromJson(errorBody, AddToRecycleBagResponse::class.java)
-//                    showToast(errorResponse.message.toString())
-//                }
-//            }
-//        } ?: showToast("Gagal Menambahkan Item")
-//    }
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-    private fun uploadImage() {
+    private fun uploadRecycle() {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, requireContext())
             Log.d("Image File", "showImage: ${imageFile.path}")
             val description = binding.tvname.text.toString()
-
-            val requestBody = description.toRequestBody("text/plain".toMediaType())
-            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
-            val multipartBody = MultipartBody.Part.createFormData(
-                "wasteImage",
-                imageFile.name,
-                requestImageFile
+            val prediction = PredictionData(
+                label = description,
+                image = ImageData(
+                    url = "https://example.com/path/to/image.jpg",
+                    localPath = "$imageFile"
+                ),
             )
 
-            lifecycleScope.launch {
-                try {
-                    viewModel.uploadStory(multipartBody, requestBody
-                    )
-                    showToast(getString(R.string.add_succes))
-                } catch (e: HttpException) {
-                    val errorBody = e.response()?.errorBody()?.string()
-                    val errorResponse = Gson().fromJson(errorBody, AddToRecycleBagResponse::class.java)
-                    showToast(errorResponse.message.toString())
-                }
+
+            val jsonString = Gson().toJson(prediction)
+            saveJsonToFile(requireContext(), jsonString)
+        } ?: showToast("Gagal Menambahkan Item")
+    }
+    private fun saveJsonToFile(context: Context, jsonString: String) {
+        try {
+            val fileName = "prediction_data.json"
+            context.openFileOutput(fileName, Context.MODE_PRIVATE).use { outputStream ->
+                outputStream.write(jsonString.toByteArray())
             }
-
-
-        } ?: showToast("Tidak Berhasil menambhkan Item")
+            showToast(getString(R.string.add_succes))
+            Log.d("SaveData", "Data saved to $fileName")
+        } catch (e: Exception) {
+            Log.e("SaveData", "Error saving data: $e")
+        }
     }
 
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
 
 
     companion object {

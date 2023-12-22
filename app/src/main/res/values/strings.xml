@@ -41,4 +41,7 @@
     <string name="tulis_disini">Tulis Disini</string>
     <string name="hi_user">Halo Matcha</string>
     <string name="add_succes">Berhasil Menambahkan</string>
+    <string name="title_welcome_page">Selamat Datang Di Upcycle</string>
+    <string name="message_welcome_page">Upcycle - Tempatmu Mulai Mengurangi Sampah. Selamat datang!</string>
+    <string name="signup_welcome">Sign In</string>
 </resources>

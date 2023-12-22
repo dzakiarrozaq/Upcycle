@@ -95,7 +95,7 @@ class UserRepository private constructor(
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 val errorMessage = "Login failed: ${t.message}"
-                Log.e("StoryRepository", errorMessage)
+                Log.e("UserRepository", errorMessage)
                 _isLoading.value = false
             }
         })
