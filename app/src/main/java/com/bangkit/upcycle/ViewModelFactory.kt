@@ -3,6 +3,8 @@ package com.bangkit.upcycle
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.bangkit.upcycle.camera.CameraFragment
+import com.bangkit.upcycle.camera.CameraViewModel
 import com.bangkit.upcycle.di.Injection
 import com.bangkit.upcycle.login.LoginViewModel
 import com.bangkit.upcycle.register.SignUpViewModel
@@ -20,11 +22,9 @@ class ViewModelFactory (
         else if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel(repository) as T
         }
-//        }else if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-//            return MainViewModel(repository) as T
-//        }
-//        }else if (modelClass.isAssignableFrom(UploadViewModel::class.java)) {
-//            return UploadViewModel(repository) as T
+        else if (modelClass.isAssignableFrom(CameraViewModel::class.java)) {
+            return CameraViewModel(repository) as T
+        }
 //        }else if (modelClass.isAssignableFrom(MapsViewModel::class.java)) {
 //            return MapsViewModel(repository) as T
 //        }

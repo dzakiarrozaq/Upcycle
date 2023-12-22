@@ -5,14 +5,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bangkit.upcycle.apii.ApiService
 import com.bangkit.upcycle.preferences.UserPreferences
+import com.bangkit.upcycle.response.AddToRecycleBagResponse
 import com.bangkit.upcycle.response.ErrorResponse
 import com.bangkit.upcycle.response.LoginResponse
 import com.bangkit.upcycle.response.RegisterResponse
+
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,7 +41,7 @@ class UserRepository private constructor(
         val deferred = CompletableDeferred<RegisterResponse>()
 
         val requestBody = JsonObject().apply {
-            addProperty("username", username)
+            addProperty("name", username)
             addProperty("email", email)
             addProperty("password", password)
         }
@@ -89,7 +95,7 @@ class UserRepository private constructor(
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 val errorMessage = "Login failed: ${t.message}"
-                Log.e("UserRepository", errorMessage)
+                Log.e("StoryRepository", errorMessage)
                 _isLoading.value = false
             }
         })
@@ -115,6 +121,52 @@ class UserRepository private constructor(
     fun getSession(): kotlinx.coroutines.flow.Flow<com.bangkit.upcycle.preferences.User> {
         return pref.getTokenKey()
     }
+
+    private val _recyclingResponse = MutableLiveData<AddToRecycleBagResponse>()
+    val recyclingResponse: LiveData<AddToRecycleBagResponse>
+        get() = _recyclingResponse
+    fun uploadRecycle(request: ModelDataJson) {
+        val jsonMediaType = "application/json".toMediaTypeOrNull()
+        val requestBody = RequestBody.create(jsonMediaType, Gson().toJson(request))
+
+        apiService.uploadRecycle(requestBody)
+            .enqueue(object : Callback<AddToRecycleBagResponse> {
+                override fun onResponse(
+                    call: Call<AddToRecycleBagResponse>,
+                    response: Response<AddToRecycleBagResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _recyclingResponse.value = response.body()
+                    } else {
+                        // Handle error
+                    }
+                }
+
+                override fun onFailure(call: Call<AddToRecycleBagResponse>, t: Throwable) {
+                    // Handle network failure
+                }
+            })
+    }
+    fun uploadImage(file: MultipartBody.Part, name: RequestBody) {
+        _isLoading.value = true
+        val client = apiService.uploadImage(file, name)
+        client.enqueue(object : Callback<AddToRecycleBagResponse> {
+            override fun onResponse(
+                call: Call<AddToRecycleBagResponse>,
+                response: Response<AddToRecycleBagResponse>
+            ) {
+                if (response.isSuccessful) {
+                    _isLoading.value = false
+                }
+            }
+
+            override fun onFailure(call: Call<AddToRecycleBagResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e("StoryRepository", "error: ${t.message}")
+            }
+        })
+    }
+
 
     companion object {
         @Volatile

@@ -12,22 +12,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.bangkit.upcycle.R
+import com.bangkit.upcycle.ViewModelFactory
 import com.bangkit.upcycle.databinding.FragmentCameraBinding
 import com.bangkit.upcycle.getImageUri
-import com.bangkit.upcycle.ml.Model
 import com.bangkit.upcycle.ml.Modelint8quant
+import com.bangkit.upcycle.repository.ModelDataJson
+import com.bangkit.upcycle.response.AddToRecycleBagResponse
+import com.bangkit.upcycle.uriToFile
+import com.google.gson.Gson
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.tensorflow.lite.DataType
-import org.tensorflow.lite.support.common.ops.NormalizeOp
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
-import java.text.Normalizer
+import retrofit2.HttpException
 import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
@@ -47,6 +60,9 @@ class CameraFragment : Fragment() {
     private lateinit var binding: FragmentCameraBinding
     private lateinit var bitmap: Bitmap
     private var currentImageUri: Uri? = null
+    private val viewModel by viewModels<CameraViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -171,12 +187,78 @@ class CameraFragment : Fragment() {
 
         val backgroundView = popUp.findViewById<View>(R.id.backgroundView)
         val labelTextView = popUp.findViewById<TextView>(R.id.tvname1)
+        val buttonAdd = popUp.findViewById<Button>(R.id.addToRecycleBag)
+
+        buttonAdd.setOnClickListener{
+            uploadImage()
+        }
 
         backgroundView.setOnClickListener{
             popUp.dismiss()
         }
         labelTextView.text = binding.tvname.text
         popUp.show()
+    }
+
+//    private fun uploadRecycle() {
+//        currentImageUri?.let { uri ->
+//            val imageFile = uriToFile(uri, requireContext())
+//            Log.d("Image File", "showImage: ${imageFile.path}")
+//            val description = binding.tvname.text.toString()
+//
+//            val requestBody = description.toRequestBody("text/plain".toMediaType())
+//
+//
+//            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
+//            val multipartBody = MultipartBody.Part.createFormData(
+//                "wasteImage",
+//                imageFile.name,
+//                requestImageFile
+//            )
+//            val request = ModelDataJson(multipartBody,description)
+//            lifecycleScope.launch {
+//                try {
+//                    viewModel.uploadRecycle(request)
+//                    showToast(getString(R.string.add_succes))
+//                } catch (e: HttpException) {
+//                    val errorBody = e.response()?.errorBody()?.string()
+//                    val errorResponse = Gson().fromJson(errorBody, AddToRecycleBagResponse::class.java)
+//                    showToast(errorResponse.message.toString())
+//                }
+//            }
+//        } ?: showToast("Gagal Menambahkan Item")
+//    }
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+    private fun uploadImage() {
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, requireContext())
+            Log.d("Image File", "showImage: ${imageFile.path}")
+            val description = binding.tvname.text.toString()
+
+            val requestBody = description.toRequestBody("text/plain".toMediaType())
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBody = MultipartBody.Part.createFormData(
+                "wasteImage",
+                imageFile.name,
+                requestImageFile
+            )
+
+            lifecycleScope.launch {
+                try {
+                    viewModel.uploadStory(multipartBody, requestBody
+                    )
+                    showToast(getString(R.string.add_succes))
+                } catch (e: HttpException) {
+                    val errorBody = e.response()?.errorBody()?.string()
+                    val errorResponse = Gson().fromJson(errorBody, AddToRecycleBagResponse::class.java)
+                    showToast(errorResponse.message.toString())
+                }
+            }
+
+
+        } ?: showToast("Tidak Berhasil menambhkan Item")
     }
 
 

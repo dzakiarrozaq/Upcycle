@@ -38,6 +38,7 @@
     <string name="nama_sampah">Nama Sampah</string>
     <string name="email_empty">Email Kosong</string>
     <string name="password_empty">Password Kosong</string>
-    <string name="tulis_disini">Tulis disini</string>
-    <string name="hi_user">Hi </string>
+    <string name="tulis_disini">Tulis Disini</string>
+    <string name="hi_user">Halo Matcha</string>
+    <string name="add_succes">Berhasil Menambahkan</string>
 </resources>
